@@ -10,17 +10,16 @@ import (
 
 )
 
-func isJSON(s string) bool {
-	var js map[string]interface{}
+
+func isJSONArray(s string) bool {
+
+	var js []interface{}
+
 	return json.Unmarshal([]byte(s), &js) == nil
 
 }
 
-func isJSONString(s string) bool {
-	var js string
-	return json.Unmarshal([]byte(s), &js) == nil
 
-}
 
 func TestList(t *testing.T) {
 	var test bool
@@ -33,7 +32,7 @@ func TestList(t *testing.T) {
 	defer resp.Body.Close()
 	buffer.ReadFrom(resp.Body)
 	str := buffer.String()
-	test = isJSONString(str)
+	test = isJSONArray(str)
 
 	if test == false {
 		t.Error("/list did not return a JSON formatted value")
